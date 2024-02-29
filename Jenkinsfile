@@ -4,12 +4,15 @@ pipeline{
         maven 'Maven'
     }
     stages{
-        stage("Build Maven"){
+        stage("SCM Checkout"){
             steps{
             checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/asairampatro/jwt-project']])
-            sh 'mvn clean install'
             }
         }
-       
+        stage("Maven Build"){
+            steps{
+                bat 'mvn clean package'
+            }
+        }
     }
 }
