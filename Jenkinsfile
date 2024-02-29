@@ -1,26 +1,15 @@
 pipeline{
     agent any
+    tools{
+        maven 'Maven'
+    }
     stages{
-        stage("checkout"){
+        stage("Build Maven"){
             steps{
-                checkout scm
+            checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/asairampatro/jwt-project']])
+            sh 'mvn clean install'
             }
         }
-
-         stage("Build"){
-            steps{
-                sh "npm run build"
-                
-            }
-         }
-
-        stage("Build Image"){
-            steps{
-                sh "docker build -t sairampatro/myapp"                
-            }
-         }
-
-        
-
+       
     }
 }
