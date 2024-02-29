@@ -9,6 +9,14 @@ pipeline{
             checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/asairampatro/jwt-project']])
             }
         }
+
+        stage("Build Docker Image"){
+            steps{
+                script{
+                    sh 'docker build -t sairampatro/myapp .'
+                }
+            }
+        }
         
     }
 }
