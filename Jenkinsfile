@@ -1,22 +1,32 @@
-pipeline{
+pipeline {
     agent any
-    tools{
-        maven 'Maven'
-    }
-    stages{
-        stage("SCM Checkout"){
-            steps{
-            checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/asairampatro/jwt-project']])
-            }
-        }
 
-        stage("Build Docker Image"){
-            steps{
-                script{
-                    sh 'docker build -t sairampatro/myapp .'
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "Maven"
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                git 'https://github.com/asairampatro/jwt-project.git'
+
+                // Run Maven on a Unix agent.
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
                 }
             }
         }
-        
     }
 }
