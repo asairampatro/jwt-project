@@ -18,6 +18,7 @@ pipeline {
                 // To run Maven on a Windows agent, use
                  bat "mvn clean install"
             }
+        }
 
            stage('Building our image') {
                 steps{
@@ -25,7 +26,6 @@ pipeline {
                          bat "docker build -t sairampatro/myapp ."
                     }
                 }
-            }
         }
     }
 }
