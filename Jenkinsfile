@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('GitHub') {
             steps {
                 // Get some code from a GitHub repository
                 git 'https://github.com/asairampatro/jwt-project.git'
@@ -20,7 +20,7 @@ pipeline {
             }
         }
 
-        stage('Building our image') {
+        stage('Building image to docker') {
                 steps{
                     script {
                          bat "docker build -t sairampatro/myapp ."
