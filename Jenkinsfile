@@ -35,7 +35,8 @@ pipeline {
                         //      bat "docker push sairampatro/myapp:latest"
                         // }
                         withCredentials([usernameColonPassword(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
-                            // bat "docker push sairampatro/myapp"
+                            bat 'docker login -u sairampatro -p ${dockerhubpwd}'
+                            bat "docker push sairampatro/myapp"
                         }
                     }
                 }
