@@ -20,10 +20,20 @@ pipeline {
             }
         }
 
-           stage('Building our image') {
+        stage('Building our image') {
                 steps{
                     script {
                          bat "docker build -t sairampatro/myapp ."
+                    }
+                }
+        }
+
+        stage('push image to dockerhub') {
+                steps{
+                    script {
+                         withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
+                             bat "docker push sairampatro/myapp:build"
+                        }
                     }
                 }
         }
