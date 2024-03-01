@@ -31,11 +31,8 @@ pipeline {
         stage('push image to dockerhub') {
                 steps{
                     script {
-                        //  withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
-                        //      bat "docker push sairampatro/myapp:latest"
-                        // }
-                        withCredentials([string(credentialsId: 'dockerhublogin', variable: 'dockerhublogin')]) {
-                            bat 'docker login -u rsai6667@gmail.com -p ${dockerhublogin}'
+                        withCredentials([string(credentialsId: 'dockerhub-pwd1', variable: 'dockerhub-pwd')]) {
+                             bat 'docker login -u sairampatro -p ${dockerhub-pwd}'
                         }
                         bat "docker push sairampatro/myapp"
                     }
