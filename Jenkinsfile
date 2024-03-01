@@ -32,7 +32,7 @@ pipeline {
                 steps{
                     script {
                         withCredentials([string(credentialsId: 'dockerhub-pwd1', variable: 'dockerhub-pwd')]) {
-                             bat 'docker login -u sairampatro -p ${dockerhub-pwd}'
+                             bat 'docker login -u sairampatro -p 9776233474S'
                         }
                         bat "docker push sairampatro/myapp"
                     }
