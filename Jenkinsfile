@@ -32,7 +32,7 @@ pipeline {
                 steps{
                     script {
                          withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
-                             bat "docker push sairampatro/myapp"
+                             bat "docker push sairampatro/myapp:latest"
                         }
                     }
                 }
